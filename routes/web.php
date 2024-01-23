@@ -14,8 +14,10 @@ use Illuminate\Support\Facades\Route;
 */
 use Illuminate\Http\Request;
 
-Route::get('/', function (Request $request) {
-    $ipAddress = $request->getClientIp();
-    dd($ipAddress);
-    return view('welcome');
-});
+Route::middleware('auth')->get('/', function () {
+    // $ipAddress = $request->getClientIp();
+    // dd($ipAddress);
+    return view('dashboard.index');
+})->name('dashboard');
+
+require __DIR__.'/dashboard.php';

@@ -16,12 +16,14 @@ return new class extends Migration
             $table->string('name');
             $table->string('username')->unique();
             $table->string('email')->unique()->nullable();
-            $table->string('password');
             $table->string("phone")->unique();
-            $table->string("address");
             $table->decimal("salary");
-            $table->foreignId("branch_id")->references("id")->on("branches")->onDelete("set null");
-            $table->foreignId("department_id")->references("id")->on("departments")->onDelete("set null");
+            $table->string('photo')->nullable();
+            $table->string('front_id_card_photo');
+            $table->string('back_id_card_photo');
+            $table->string('password');
+            $table->foreignId("branch_id")->nullable()->references("id")->on("branches")->onDelete('set null');
+            $table->foreignId("department_id")->nullable()->references("id")->on("departments")->onDelete('set null');
             $table->rememberToken();
             $table->timestamps();
             $table->softDeletes();

@@ -2,8 +2,12 @@
 
 namespace App\Exceptions;
 
-use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Throwable;
+use Illuminate\Auth\AuthenticationException;
+use Illuminate\Validation\UnauthorizedException;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class Handler extends ExceptionHandler
 {
@@ -27,4 +31,31 @@ class Handler extends ExceptionHandler
             //
         });
     }
+
+    public function render($request, Throwable $exception)
+    {
+        if ($request->is('api/*')) {
+            if ($exception instanceof AuthenticationException) {
+                return responseErrorMessage("Authentication Unauthorized", 401);
+            }
+
+            if ($exception instanceof NotFoundHttpException) {
+                return responseErrorMessage('Route Not Found', 404);
+            }
+
+    
+
+            if ($exception instanceof UnauthorizedException) {
+                return responseErrorMessage('You do not have the required authorization.', 403);
+            }
+
+            if ($exception instanceof ModelNotFoundException) {
+                return responseErrorMessage('Model Not Found |' . $exception->getMessage(), 404);
+            }
+        }
+
+        return parent::render($request, $exception);
+    }
+
+
 }

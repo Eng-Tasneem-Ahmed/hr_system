@@ -1,5 +1,7 @@
 <?php
 
+use App\Enums\VacationStatus;
+use App\Enums\VacationType;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -15,8 +17,8 @@ return new class extends Migration
             $table->id();
             $table->text("note")->nullable();
             $table->date("from");
-            $table->enum("type",["annual",'sick','paid']);
-            $table->enum("status",['pending','rejected','accepted']);
+            $table->tinyInteger("type");
+            $table->tinyInteger("status")->default(VacationStatus::PENDING->value);
             $table->date("to")->nullable();
             $table->foreignId("user_id")->references("id")->on("users")->cascadeOnDelete();
             $table->timestamps();
