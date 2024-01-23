@@ -8,8 +8,8 @@ class DepartmentFilter
 {
     public function handle($query, Closure $next)
     {
-        if (request()->filled('department_id') && request()->input('department_id') != null) {
-            $query->where('department_id', 'like', '%' . request()->input('department_id') . '%');
+        if (request()->filled('department_id') && request()->department_id != null) {
+            $query->whereDepartment_id( request()->department_id);
         }
         return $next($query);
     }

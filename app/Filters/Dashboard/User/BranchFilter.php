@@ -8,8 +8,8 @@ class BranchFilter
 {
     public function handle($query, Closure $next)
     {
-        if (request()->filled('branch_id') && request()->input('branch_id') != null) {
-            $query->where('branch_id', 'like', '%' . request()->input('branch_id') . '%');
+        if (request()->filled('branch_id') && request()->branch_id != null) {
+            $query->whereBranch_id(request()->branch_id);
         }
         return $next($query);
     }

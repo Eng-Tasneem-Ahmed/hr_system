@@ -145,8 +145,9 @@ class UserController extends Controller
     //   dd( $users);
     // }
 
-    function filter()
+    function filter(Request $request)
     {
+      
         $users = app(Pipeline::class)
             ->send(User::query())
             ->through([
@@ -160,6 +161,6 @@ class UserController extends Controller
             ->latest()
             ->paginate()
             ->withQueryString();
-        dd($users);
+        return view("dashboard.users.filter",compact("users"));
     }
 }

@@ -1,5 +1,7 @@
 @extends('dashboard.layout.master')
-
+@section('style')
+<meta name="csrf-token" content="{!! csrf_token() !!}">
+@endsection
 @section('content')
 
 <div class="container-xxl flex-grow-1 container-p-y">
@@ -12,7 +14,7 @@
   <!-- Basic Bootstrap Table -->
   <div class="card">
     <h5 class="card-header">Employees</h5>
-<form action="{{ route('dashboard.users.filter') }}" method="POST" id="fillter">
+<form  method="POST" id="filter">
   @csrf
   <div class="row px-2 pb-3 align-items-end">
 
@@ -67,7 +69,7 @@
             <th>Actions</th>
           </tr>
         </thead>
-        <tbody class="table-border-bottom-0" id="user">
+        <tbody class="table-border-bottom-0" id="users">
           @foreach ($users as $user )
           <tr>
             <td>{{ $loop->iteration }}</td>
@@ -119,24 +121,31 @@
 <script>
   $(document).ready(function () {
     console.log('ready')
-    $('#filter').submit(function (e) {
-        e.preventDefault();
-        console.log('submit')
-        var formData = $(this).serialize();
-        console.log(formData )
-        $.ajax({
-            type: 'GET',
-            url: route('dashboard.users.fillter'),
-            data: formData,
-            success: function (response) {
-                // Handle the response, update the UI, etc.
-                console.log(response.users);
-            },
-            error: function (error) {
-                console.log(error);
-            }
-        });
-    });
+    $("#filter").submit(function(e)
+        {
+            e.preventDefault();
+            var formData  = new FormData(jQuery('#filter')[0]);
+            
+             console.log(formData);
+            $.ajax({
+                url:"{{route('dashboard.users.filter')}}",
+                type:"POST",
+                data:formData,
+                contentType: false,
+                processData: false,
+                success:function(dataBack)
+                {
+                   $("#users").html(dataBack);
+
+                }, error: function (xhr, status, error) 
+                {
+                
+                    console.log(xhr.responseJSON.errors);
+                   
+                }
+            })
+
+        })
 });
 
 </script>
