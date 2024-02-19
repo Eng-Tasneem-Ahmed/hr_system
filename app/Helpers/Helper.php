@@ -28,7 +28,7 @@ if (!function_exists('displayImage')) {
         if (Storage::exists('public/' . $object)) {
             return asset('storage/' . $object);
         }
-        return asset($object);
+        return asset('storage/users/user.png');
     }
 }
 // get model data

@@ -17,8 +17,8 @@ return new class extends Migration
             $table->id();
             $table->text("note")->nullable();
             $table->date("from");
-            $table->tinyInteger("type");
-            $table->tinyInteger("status")->default(VacationStatus::PENDING->value);
+            $table->enum("type",VacationType::getValues());
+            $table->enum("status",VacationStatus::getValues())->default(VacationStatus::PENDING->value);
             $table->date("to")->nullable();
             $table->foreignId("user_id")->references("id")->on("users")->cascadeOnDelete();
             $table->timestamps();

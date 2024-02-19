@@ -169,7 +169,7 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
         RealRashid\SweetAlert\SweetAlertServiceProvider::class,
-
+        // Spatie\Permission\PermissionServiceProvider::class,
         Stevebauman\Location\LocationServiceProvider::class,
     ])->toArray(),
 

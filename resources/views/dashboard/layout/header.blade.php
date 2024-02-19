@@ -20,12 +20,8 @@
     <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="{{'dashboard'}}/assets/img/favicon/favicon.ico" />
 
-    <!-- Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap"
-      rel="stylesheet" />
+  
+   
 
     <link rel="stylesheet" href="{{asset('dashboard/assets/vendor/fonts/boxicons.css')}}" />
 
@@ -97,13 +93,14 @@
         <!-- /Search -->
 
         <ul class="navbar-nav flex-row align-items-center ms-auto">
-         
+
 
           <!-- User -->
           <li class="nav-item navbar-dropdown dropdown-user dropdown">
             <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown">
               <div class="avatar avatar-online">
-                <img src="{{auth()->user()->photo?displayImage($user->photo):displayImage('users/user.jpg')}}" alt class="w-px-40 h-auto rounded-circle" />
+          
+                <img src="{{displayImage(auth()->user()->photo)}}" alt class="w-px-40 h-auto rounded-circle h-100"  />
               </div>
             </a>
             <ul class="dropdown-menu dropdown-menu-end">
@@ -112,27 +109,27 @@
                   <div class="d-flex">
                     <div class="flex-shrink-0 me-3">
                       <div class="avatar avatar-online">
-                        <img src="{{auth()->user()->photo?displayImage($user->photo):displayImage('users/user.jpg')}}" alt class="w-px-40 h-auto rounded-circle" />
+                        <img src="{{displayImage(auth()->user()->photo)}}" alt class="w-px-40 h-auto rounded-circle" />
                       </div>
                     </div>
                      <div class="flex-grow-1">
                       <span class="fw-medium d-block">{{ auth()->user()->name }}</span>
                       <small class="text-muted">Admin</small>
-                    </div> 
+                    </div>
                   </div>
                 </a>
               </li>
               <li>
                 <div class="dropdown-divider"></div>
               </li>
-             
+
               <li>
                 <a class="dropdown-item" href="{{ route('dashboard.profile.edit') }}">
                   <i class="bx bx-cog me-2"></i>
                   <span class="align-middle">Settings</span>
                 </a>
-              </li> 
-             
+              </li>
+
               <li>
                 <div class="dropdown-divider"></div>
               </li>
@@ -141,7 +138,7 @@
                   <i class="bx bx-power-off me-2"></i>
                   <span class="align-middle">Log Out</span>
                 </a>
-              </li> 
+              </li>
             </ul>
           </li>
           <!--/ User -->

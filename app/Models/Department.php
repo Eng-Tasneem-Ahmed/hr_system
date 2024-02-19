@@ -9,6 +9,12 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 class Department extends Model
 {
     use HasFactory, SoftDeletes;
+    public static $permissions = [
+        'department-show',
+        'department-store',
+        'department-update',
+        'department-delete',
+    ];
     protected $fillable = ["name"];
 
 

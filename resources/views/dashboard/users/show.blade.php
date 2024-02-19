@@ -11,8 +11,7 @@
         <div class="card-body text-center">
 
           <div class="mx-auto mb-3">
-            <img src="{{ $user->photo?displayImage($user->photo):displayImage('users/user.jpg') }}" alt="Avatar Image"
-              class="rounded-circle w-px-100">
+            <img src="{{ $user->photo?displayImage($user->photo):displayImage('users/user.jpg') }}" alt="Avatar Image" style="width: 200px;height:200px">
           </div>
           <h5 class="mb-1 card-title">{{ $user->name }}</h5>
           <span>{{ $user->department->name }}</span>

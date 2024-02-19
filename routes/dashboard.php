@@ -1,6 +1,7 @@
 <?php
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Dashboard\AuthController;
+use App\Http\Controllers\Dashboard\RoleController;
 use App\Http\Controllers\Dashboard\UserController;
 use App\Http\Controllers\Dashboard\BranchController;
 use App\Http\Controllers\Dashboard\ProfileController;
@@ -32,6 +33,16 @@ Route::controller(UserController::class)->prefix('users')->name('users.')->group
     Route::delete('/{user}', 'destroy')->name('destroy');
     Route::get('/restore/{id}', 'restore')->name('restore');
     Route::post('/filter', 'filter')->name('filter');
+
+});
+
+#################### User #################################
+Route::controller(RoleController::class)->prefix('roles')->name('roles.')->group(function () {
+    Route::get('', 'index')->name('index');
+    Route::get('/create', 'create')->name('create');
+    Route::post('/', 'store')->name('store');
+    Route::get('/{role}', 'edit')->name('edit');
+    Route::put('/{role}', 'update')->name('update');
 
 });
 

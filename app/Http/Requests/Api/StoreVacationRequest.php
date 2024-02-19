@@ -15,7 +15,7 @@ class StoreVacationRequest extends BaseFormRequest
             "from" => "required|date_format:Y-m-d|after:today",
             "to" => "nullable|date|after:from",
             "note" => "nullable|string",
-            "type" => "required|in:1,2,3",
+            "type" => "required|in:".VacationType::getValues(),
 
         ];
     }

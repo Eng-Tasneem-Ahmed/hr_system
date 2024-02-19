@@ -14,4 +14,15 @@ enum VacationStatus: int
            self::REJECTED =>"bg-danger" ,
        };
      }
+
+
+     public static function getValues()
+     {
+         return [
+             self::PENDING ->value,
+             self::ACCEPTED ->value ,
+             self::REJECTED->value
+         ];
+         
+     }
 }

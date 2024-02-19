@@ -81,9 +81,9 @@ class UserController extends Controller
     function update(UpdateUserRequest $request, User $user)
     {
         $data = $request->all();
-        $data['photo'] = $request->hasFile("photo") ? uploadImage($request->photo, User::PATH) : $user->photo;
-        $data['front_id_card_photo'] = $request->hasFile("front_id_card_photo") ? uploadImage($request->front_id_card_photo, User::PATH) : $user->front_id_card_photo;
-        $data['back_id_card_photo'] = $request->hasFile("back_id_card_photo") ? uploadImage($request->back_id_card_photo, User::PATH) : $user->back_id_card_photo;
+        $data['photo'] = $request->hasFile("photo") ? uploadImage($request->photo, User::PATH,$user->photo) : $user->photo;
+        $data['front_id_card_photo'] = $request->hasFile("front_id_card_photo") ? uploadImage($request->front_id_card_photo, User::PATH, $user->front_id_card_photo) : $user->front_id_card_photo;
+        $data['back_id_card_photo'] = $request->hasFile("back_id_card_photo") ? uploadImage($request->back_id_card_photo, User::PATH,$user->back_id_card_photo) : $user->back_id_card_photo;
         if ($user->update($data)) {
 
             Alert::success('success', 'user updated successfully');

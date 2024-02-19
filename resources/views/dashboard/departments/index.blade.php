@@ -3,28 +3,16 @@
 @section('content')
 
 <div class="container-xxl flex-grow-1 container-p-y">
-  <h4 class="py-3 mb-4"><span class="text-muted fw-light">Tables /</span> Departments</h4>
 
-  <!-- Basic Bootstrap Table -->
   <div class="card">
 
-
-    <div class="row mt-3">
-      <div class="d-grid gap-2 col-lg-6 mx-auto">
-
-        <a href="{{ route('dashboard.departments.create') }}" class="btn btn-primary btn-lg">Add</a>
-      </div>
-    </div>
-    <div class="row justify-content-end ">
-      <div class="col-lg-3 col-sm-6 col-12">
-
-        <div class="demo-inline-spacing">
-
-        </div>
-      </div>
-    </div>
-
-    <h5 class="card-header">Departments</h5>
+<div class="row justify-content-between align-items-center card-header " >
+  <div class="col-6"><h5>Departments</h5></div>
+  <div class="col-6 text-end">
+<a href="{{ route('dashboard.departments.create') }}" class="btn btn-primary btn-lg">Add</a>
+</div> 
+</div>
+    
     <div class="table-responsive text-nowrap">
       <table class="table">
         <thead>

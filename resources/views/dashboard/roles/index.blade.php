@@ -6,9 +6,9 @@
   
     <div class="card">
     <div class="row justify-content-between align-items-center card-header " >
-  <div class="col-6"><h5>Branches</h5></div>
+  <div class="col-6"><h5>roles</h5></div>
   <div class="col-6 text-end">
-<a href="{{ route('dashboard.branches.create') }}" class="btn btn-primary btn-lg">Add</a>
+<a href="{{ route('dashboard.roles.create') }}" class="btn btn-primary btn-lg">Add</a>
 </div> 
 </div>
     
@@ -18,33 +18,28 @@
             <tr>
               <th>#</th>
               <th> Name</th>
-              <th>Location</th>
+            
         
               <th >Actions</th>
             </tr>
           </thead>
-          <tbody class="table-border-bottom-0" id="branch">
-           @foreach ($branches as $branch )
+          <tbody class="table-border-bottom-0" id="role">
+           @foreach ($roles as $role )
 
            <tr>
             <td>{{ $loop->iteration }}</td>
-            <td>{{ $branch->name }}</td>
+            <td>{{ $role->name }}</td>
            
-            <td> {{$branch->location}}</td>
             
-            <td class="d-flex justify-content-between align-items-center">
-              <form action="{{ route('dashboard.branches.edit',$branch->id) }}" mathod="post">
+            
+            <td class="">
+              <form action="{{ route('dashboard.roles.edit',$role->id) }}" mathod="post">
                   @csrf
                   @method('put')
 
                   <button type="submit" class="btn btn-info">Edit</button>
               </form>
-              @if(!$branch->deleted_at)
-              <a  data-confirm-delete="true" href="{{ route('dashboard.branches.destroy',$branch->id) }}" class="btn btn-danger">Delete</a>
-              @else
- 
-              <a   href="{{ route('dashboard.branches.restore',$branch->id) }}" class="btn btn-warning">Restore</a>
-              @endif
+            
             </td>
           </tr>
                
@@ -56,9 +51,7 @@
           </tbody>
         </table>
 
-       <div class="float-end me-5">
-        {{ $branches->links() }}
-       </div>
+    
 
       </div>
     </div>

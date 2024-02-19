@@ -8,7 +8,12 @@ use Illuminate\Database\Eloquent\Model;
 class Attendance extends Model
 {
     use HasFactory;
-
+    public static $permissions = [
+        'attendance-show',
+        'attendance-store',
+        'attendance-update',
+        'attendance-delete',
+    ];
     protected $fillable = ['user_id', 'time_in', 'time_out', 'minutes_of_late', 'hours_worked','latitude','longitude','ip'];
 
 

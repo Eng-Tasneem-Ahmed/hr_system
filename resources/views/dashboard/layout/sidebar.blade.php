@@ -102,7 +102,14 @@
   </li>
    
      
-
+<!--  Role -->
+<li class="menu-item  ">
+  <a href="{{ route('dashboard.roles.index')}}" class="menu-link ">
+    <i class="menu-icon tf-icons bx bx-home-circle"></i>
+    <div data-i18n="Dashboards">Roles</div>
+  </a>
+  
+</li>
   
     </ul>
   </aside>

@@ -15,12 +15,12 @@ enum VacationType: int
          self::PAID =>"bg-info" ,
      };
    }
-   public static function all(): array
+   public static function getValues(): array
    {
        return [
-           self::SICK,
-           self::PAID,
-           self::ANNUL,
+           self::SICK->value,
+           self::PAID->value,
+           self::ANNUL->value,
        ];
    }
   
