@@ -33,6 +33,7 @@ class StoreUserRequest extends FormRequest
             "front_id_card_photo"=>'required|mimes:png,jpg,jpeg,webp|max:2048',
             "back_id_card_photo"=>'required|mimes:png,jpg,jpeg,webp|max:2048',
             'phone'=>'required|regex:/^01[0125][0-9]{8}$/|unique:users,phone',
+            'role'=>"nullable|exists:roles,name"
         ];
     }
 }

@@ -117,6 +117,22 @@
                             <img src="{{displayImage($user->photo) }}" alt="photo"  style="width: 4rem ;height:4rem"> 
                             @endif
                         </div>
+                        
+                        <div class="mt-2 mb-3 col-md-6">
+                            <label for="largeSelect" class="form-label">Role</label>
+                            <select id="largeSelect" class="form-select form-select-lg" name="role">
+                                <option value="">No role selected</option>
+                                @foreach ($roles as $role)
+                                    <option value="{{ $role->name }}" {{ $user->hasRole($role->name) ? 'selected' : '' }}>
+                                        {{ $role->name }}
+                                    </option>
+                                @endforeach
+                            </select>
+                            @error('role')
+                                <small class="text-danger">{{ $message }}</small>
+                            @enderror
+                        </div>
+                        
                         <div class="float-end">
                             <button type="submit" class="btn btn-primary px-5">Update</button>
                         </div>

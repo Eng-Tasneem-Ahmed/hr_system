@@ -104,7 +104,7 @@
                             <small class="text-danger">{{ $message }}</small>
                             @enderror
                         </div>
-                        <div class="mb-3 col-12">
+                        <div class="mb-3 col-6">
                             <label class="form-label" for="basic-default-fullname"> Password</label>
                             <input type="text" class="form-control" id="basic-default-fullname"
                                 value="{{ old('password')??'' }}" name="password">
@@ -112,7 +112,19 @@
                             <small class="text-danger">{{ $message }}</small>
                             @enderror
                         </div>
-
+                      
+                        <div class="mt-2 mb-3 col-md-6">
+                            <label for="largeSelect" class="form-label">role</label>
+                            <select id="largeSelect" class="form-select form-select-lg" name="role">
+                                @foreach ($roles as $role )
+                                <option value="{{ null }}">no role selected</option>
+                                <option value="{{ $role->name}}">{{ $role->name }}</option>
+                                @endforeach
+                                @error('role')
+                                <small class="text-danger">{{ $message }}</small>
+                                @enderror
+                            </select>
+                        </div>
                         <div class="float-end">
                             <button type="submit" class="btn btn-primary px-5">Save</button>
                         </div>

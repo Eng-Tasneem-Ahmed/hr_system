@@ -39,7 +39,7 @@
                 class="fw-medium mx-2">Status:</span> <span class="{{$user->deleted_at?'text-danger':'text-info' }}">{{
                 $user->deleted_at?'Deactive':'Active' }}</span></li>
             <li class="d-flex align-items-center mb-3"><i class="bx bx-star"></i><span
-                class="fw-medium mx-2">Role:</span> <span>Developer</span></li>
+                class="fw-medium mx-2">Role:</span> <span>{{ $user->getRoleNames()->count()?$user->getRoleNames()[0]:'no Role' }}</span></li>
             <li class="d-flex align-items-center mb-3"><i class="bx bx-map"></i><span
                 class="fw-medium mx-2">Branch:</span> <span>{{ $user->branch->name }}</span></li>
           </ul>

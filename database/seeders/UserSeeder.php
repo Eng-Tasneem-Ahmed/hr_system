@@ -16,7 +16,18 @@ class UserSeeder extends Seeder
      */
     public function run(): void
     {
-        User::create([
+       $super_admin= User::create([
+            "name" => "super_admin",
+            "username" => "super_admin##",
+            "password" => Hash::make("123456"),
+            "department_id"=>Department::first()->id,
+            "branch_id"=>Branch::first()->id,
+            "salary"=>2000,
+            "phone"=>"0111111111",
+            "back_id_card_photo"=>"1.png",
+            "front_id_card_photo"=>"2.png",
+        ]);
+        $admin= User::create([
             "name" => "admin",
             "username" => "admin##",
             "password" => Hash::make("123456"),
@@ -27,5 +38,9 @@ class UserSeeder extends Seeder
             "back_id_card_photo"=>"1.png",
             "front_id_card_photo"=>"2.png",
         ]);
+      $admin->assignRole("admin");
+      $super_admin->assignRole("super_admin");
+
+
     }
 }

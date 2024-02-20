@@ -2,17 +2,18 @@
 
 namespace App\Http\Controllers\Dashboard;
 
-use App\Filters\Dashboard\User\BranchFilter;
-use App\Filters\Dashboard\User\DepartmentFilter;
 use App\Models\User;
 use App\Models\Branch;
 use App\Models\Department;
 use Illuminate\Http\Request;
+use Illuminate\Pipeline\Pipeline;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Pipeline\Pipeline;
+use Spatie\Permission\Models\Role;
 use RealRashid\SweetAlert\Facades\Alert;
 use App\Filters\Dashboard\User\NameFilter;
+use App\Filters\Dashboard\User\BranchFilter;
+use App\Filters\Dashboard\User\DepartmentFilter;
 use App\Http\Requests\Dashboard\User\StoreUserRequest;
 use App\Http\Requests\Dashboard\User\UpdateUserRequest;
 
@@ -31,8 +32,9 @@ class UserController extends Controller
     function create()
     {
         $branches = getModel(Branch::class, ['id', 'name']);
+        $roles = getModel(Role::class, ['id', 'name']);
         $departments = getModel(Department::class, ['id', 'name']);
-        return view('dashboard.users.create', compact('departments', 'branches'));
+        return view('dashboard.users.create', compact('departments', 'branches','roles'));
     }
 
     function store(Request $request)
@@ -46,6 +48,10 @@ class UserController extends Controller
         $data['password'] = Hash::make($request->password);
 
         $user = User::create($data);
+        if($request->role){
+            $user->assignRole($request->role);
+        }
+        
         if ($user) {
             Alert::success('success', 'user stored successfully');
         } else {
@@ -55,6 +61,8 @@ class UserController extends Controller
     }
     function show($id)
     {
+        $user = User::find($id);
+      
         $user = User::with([
             "vacations" => function ($query) {
                 $query->latest();
@@ -64,7 +72,7 @@ class UserController extends Controller
             }, 
             'branch' => function ($query) {
                 $query->withTrashed();
-            }
+            },'roles'
         ])
         ->withTrashed()
         ->find($id);
@@ -73,9 +81,10 @@ class UserController extends Controller
     }
     function edit(User $user)
     {
+        $roles = getModel(Role::class, ['id', 'name']);
         $branches = getModel(Branch::class, ['id', 'name']);
         $departments = getModel(Department::class, ['id', 'name']);
-        return view('dashboard.users.edit', compact('user', 'departments', 'branches'));
+        return view('dashboard.users.edit', compact('user', 'departments', 'branches','roles'));
     }
 
     function update(UpdateUserRequest $request, User $user)
@@ -85,7 +94,9 @@ class UserController extends Controller
         $data['front_id_card_photo'] = $request->hasFile("front_id_card_photo") ? uploadImage($request->front_id_card_photo, User::PATH, $user->front_id_card_photo) : $user->front_id_card_photo;
         $data['back_id_card_photo'] = $request->hasFile("back_id_card_photo") ? uploadImage($request->back_id_card_photo, User::PATH,$user->back_id_card_photo) : $user->back_id_card_photo;
         if ($user->update($data)) {
-
+            if($request->role){
+                $user->syncRoles($request->role);
+            }
             Alert::success('success', 'user updated successfully');
         } else {
             Alert::error('error', 'failed');
